@@ -3,12 +3,6 @@ import { connect } from "react-redux";
 import { setName, setHowToList } from "../../../actions/index";
 import Button from "../UI/Button/Button";
 import HowToBox from "../../front/HowToBox/HowToBox";
-import {
-  MemoryRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
 
 class MainPage extends React.Component {
   state = {
@@ -60,16 +54,10 @@ class MainPage extends React.Component {
 
     return (
       <div className="flex flex-col items-center justify-center">
-        {/* <Redirect
-          exact
-          from="/"
-          // to="/how-to/create-elementor-registration-page/step-1"
-          to="/create"
-        /> */}
         <div>
           <span className="text-2xl">How to</span>
           <input
-            className="bg-transparent border-t-0 border-l-0 border-r-0 border-b border-gray-900 focus:outline-none mx-2 w-64 text-2xl"
+            className="input focus:outline-none mx-2 w-64 text-2xl"
             placeholder="upload image"
             value={this.props.name ? this.props.name : ""}
             onChange={this.handleInputChange}

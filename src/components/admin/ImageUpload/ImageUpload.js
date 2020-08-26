@@ -1,5 +1,5 @@
 import React from "react";
-
+import placeholder from "./placeholder.svg";
 export default class ImageUpload extends React.Component {
   /**
    * Use media upload:
@@ -79,27 +79,17 @@ export default class ImageUpload extends React.Component {
 
   render() {
     return (
-      <div className="relative group">
-        {/* <input
-          type="hidden"
-          name="myprefix_image_id"
-          id="myprefix_image_id"
-          value="<?php echo esc_attr( $image_id ); ?>"
-          className="regular-text"
+      <div className="relative group h-full">
+        <img
+          className="object-contain h-full w-full border-none"
+          src={this.state.src}
         />
-        <input
-          type="button"
-          className="button-primary"
-          value="Select Image"
-          id="myprefix_media_manager"
-        /> */}
-        <img className="w-56" src={this.state.src} />
-        <div
-          className="w-full h-full absolute top-0 left-0 text-white flex justify-center items-center opacity-0 bg-gray-900 cursor-pointer group-hover:opacity-75"
+        <button
+          className="absolute xy-align text-white flex justify-center items-center p-3 opacity-0 bg-gray-900 cursor-pointer group-hover:opacity-75"
           onClick={this.uploadReplaceMedia}
         >
-          Change Me
-        </div>
+          <span>Change Me</span>
+        </button>
       </div>
     );
   }

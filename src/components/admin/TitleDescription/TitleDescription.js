@@ -3,7 +3,7 @@ import React from "react";
 export default class TitleDescription extends React.Component {
   render() {
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col h-full">
         <input
           type="text"
           defaultValue={this.props.title}
@@ -20,6 +20,7 @@ export default class TitleDescription extends React.Component {
               e.target.value
             )
           }
+          className="h-full"
         ></textarea>
       </div>
     );

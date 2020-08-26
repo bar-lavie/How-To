@@ -20,19 +20,25 @@ const Button = (props) => {
     default:
       break;
   }
-
+  let moreClassNames = "";
+  if (props.className) {
+    moreClassNames += props.className;
+  }
   return (
     <>
       {props.navigateTo ? (
         <Link
-          className={classNames + " " + props.className}
+          className={classNames + " " + moreClassNames}
           onClick={props.onClick}
           to={props.navigateTo}
         >
           {props.children}
         </Link>
       ) : (
-        <button className={classNames} onClick={props.onClick}>
+        <button
+          className={classNames + " " + moreClassNames}
+          onClick={props.onClick}
+        >
           {props.children}
         </button>
       )}
