@@ -64,7 +64,9 @@ class HowTo extends React.Component {
               active={this.state.step}
               onClickHandle={(step) => this.handleBulletNav(step)}
             />
-            <span>{this.state.name}</span>
+            <span className="text-3xl block text-center capitalize">
+              {this.state.name}
+            </span>
             <Switch>
               {this.state.steps.map((item, i) => (
                 <Route

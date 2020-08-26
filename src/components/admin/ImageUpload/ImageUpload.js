@@ -9,7 +9,7 @@ export default class ImageUpload extends React.Component {
   state = { src: null };
   componentDidMount() {
     this.setState((prevState) => ({
-      src: this.props.image,
+      src: this.props.image ? this.props.image : pluginAppDirPath + placeholder,
     }));
   }
   uploadReplaceMedia = () => {
@@ -84,6 +84,7 @@ export default class ImageUpload extends React.Component {
           className="object-contain h-full w-full border-none"
           src={this.state.src}
         />
+
         <button
           className="absolute xy-align text-white flex justify-center items-center p-3 opacity-0 bg-gray-900 cursor-pointer group-hover:opacity-75"
           onClick={this.uploadReplaceMedia}

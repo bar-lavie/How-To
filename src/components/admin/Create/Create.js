@@ -12,17 +12,17 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
  */
 
 class Create extends React.Component {
+  state = {
+    isUpdate: false,
+    steps: [],
+  };
+
   stepPlaceholder = {
     id: "step-1",
     img: "",
     title: "I am an example step, Edit me first!",
     content:
       "This is my description, Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  };
-
-  state = {
-    isUpdate: false,
-    steps: [this.stepPlaceholder],
   };
 
   componentDidMount() {
@@ -36,7 +36,11 @@ class Create extends React.Component {
         isUpdate: true,
         name: stepObj.name,
         shortcode: stepObj.shortcode,
-        steps: stepObj.steps,
+        steps: [...stepObj.steps],
+      });
+    } else {
+      this.setState({
+        steps: [this.stepPlaceholder],
       });
     }
   }
@@ -145,59 +149,64 @@ class Create extends React.Component {
             <span className="text-2xl">{this.props.name}</span>
           )}
           <span className="block my-4"></span>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div
-                  className="divide-y divide-gray-400"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {this.state.steps.map((item, i) => (
-                    <Draggable key={item.id} draggableId={item.id} index={i}>
-                      {(provided, snapshot) => (
-                        <div
-                          key={i}
-                          className="overflow-hidden flex items-center divide-x divide-gray-400"
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <div className="px-8 py-4 h-40 flex items-center">
-                            <span className="block mr-2">{i + 1}</span>
-                            <Button
-                              type="secondary"
-                              onClick={() => this.onRemoveStep(i)}
-                            >
-                              Remove
-                            </Button>
+          {this.state.steps.length > 0 && (
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <div
+                    className="divide-y divide-gray-400"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {this.state.steps.map((item, i) => (
+                      <Draggable key={item.id} draggableId={item.id} index={i}>
+                        {(provided, snapshot) => (
+                          <div
+                            key={i}
+                            className="overflow-hidden flex items-center divide-x divide-gray-400"
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <div className="px-8 py-4 h-40 flex items-center">
+                              <span className="block mr-2">{i + 1}</span>
+                              <Button
+                                type="secondary"
+                                onClick={() => this.onRemoveStep(i)}
+                              >
+                                Remove
+                              </Button>
+                            </div>
+                            <div className="px-8 py-4 w-3/4 h-40">
+                              <TitleDescription
+                                onTitleDescriptionChangeHandler={(
+                                  type,
+                                  value
+                                ) =>
+                                  this.onTitleDescriptionChange(type, value, i)
+                                }
+                                title={item.title}
+                                description={item.content}
+                              />
+                            </div>
+                            <div className="px-8 py-4 w-1/4 h-40">
+                              <ImageUpload
+                                onImageChangeHandler={(src) =>
+                                  this.onImageChange(src, i)
+                                }
+                                image={item.img}
+                              />
+                            </div>
                           </div>
-                          <div className="px-8 py-4 w-3/4 h-40">
-                            <TitleDescription
-                              onTitleDescriptionChangeHandler={(type, value) =>
-                                this.onTitleDescriptionChange(type, value, i)
-                              }
-                              title={item.title}
-                              description={item.content}
-                            />
-                          </div>
-                          <div className="px-8 py-4 w-1/4 h-40">
-                            <ImageUpload
-                              onImageChangeHandler={(src) =>
-                                this.onImageChange(src, i)
-                              }
-                              image={item.img}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          )}
         </div>
         <div className="flex justify-between items-center">
           <Button type="primary" onClick={this.addStep}>

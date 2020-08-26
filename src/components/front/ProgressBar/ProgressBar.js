@@ -23,7 +23,7 @@ export default class ProgressBar extends React.Component {
       (100 / (this.props.bullets - 1)) * (this.props.active - 1) + "%";
     return (
       <>
-        <div className="progress-bar flex justify-between relative">
+        <div className="progress-bar flex justify-between relative my-4">
           <div
             className="progress-line"
             style={{ width: progressLineWidth }}
