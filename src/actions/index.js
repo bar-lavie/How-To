@@ -10,58 +10,22 @@ export const setHowToList = (howToList) => {
     payload: howToList,
   };
 };
-export const selectIndustry = (selectedIndustry) => {
+export const setHowToStatus = (howTo) => {
+  const storedStatus = JSON.parse(localStorage.getItem("howtoStatus")) || [];
+  const newStatus = [...storedStatus, howTo];
+  localStorage.setItem("howtoStatus", JSON.stringify(newStatus));
   return {
-    type: "SELECT_INDUSTRY",
-    payload: selectedIndustry,
+    type: "SET_HOW_TO_STATUS",
+    payload: newStatus,
   };
 };
-
-export const setPresetName = (presetName) => {
+export const getHowToStatus = () => {
+  const storedStatus = JSON.parse(localStorage.getItem("howtoStatus")) || [];
+  // return (dispatch) => {
+  // dispatch(setHowToStatus(storedStatus));
+  // };
   return {
-    type: "SET_PREST_NAME",
-    payload: presetName,
-  };
-};
-
-export const setPrimaryColor = (primaryColor) => {
-  return {
-    type: "SET_PRIMARY_COLOR",
-    payload: primaryColor,
-  };
-};
-
-export const setSecondaryColor = (secondaryColor) => {
-  return {
-    type: "SET_SECONDARY_COLOR",
-    payload: secondaryColor,
-  };
-};
-
-export const setMonthlyOrders = (monthlyOrders) => {
-  return {
-    type: "SET_MONTHLY_ORDERS",
-    payload: monthlyOrders,
-  };
-};
-
-export const setAverageOrderValue = (averageOrderValue) => {
-  return {
-    type: "SET_AVERAGE_ORDER_VALUE",
-    payload: averageOrderValue,
-  };
-};
-
-export const selectGoals = (goals) => {
-  return {
-    type: "SET_GOALS",
-    payload: goals,
-  };
-};
-
-export const selectRewards = (selectedRewards) => {
-  return {
-    type: "SELECT_REWARDS",
-    payload: selectedRewards,
+    type: "GET_HOW_TO_STATUS",
+    payload: storedStatus,
   };
 };

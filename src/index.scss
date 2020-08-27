@@ -1,8 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap");
 @import "../node_modules/tailwindcss/base";
 @import "../node_modules/tailwindcss/components";
 @import "../node_modules/tailwindcss/utilities";
 #howto {
+  font-family: "Poppins", sans-serif;
   font-size: 1rem;
+  textarea {
+    resize: none;
+  }
+  .howto-admin {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    @apply rounded-lg max-w-3xl;
+    overflow: hidden;
+  }
   .progress-bar {
     &:before {
       content: "";
@@ -14,13 +26,13 @@
     .progress-line {
       content: "";
       height: 2px;
-      @apply bg-green-500;
+      @apply bg-indigo-500;
       @extend .y-align;
       @apply transition-all duration-300;
     }
   }
   .input {
-    @apply bg-transparent border-t-0 border-l-0 border-r-0 border-b rounded-none border-gray-600;
+    @apply bg-gray-200 px-2 border-none rounded-none;
     &:focus {
       @apply outline-none border-gray-900 shadow-none;
     }

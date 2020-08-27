@@ -1,6 +1,6 @@
 import React from "react";
-import placeholder from "./placeholder.svg";
-import { ReactComponent as edit } from "./edit.svg";
+import placeholderUrl from "./placeholder.svg";
+import { ReactComponent as Edit } from "./edit.svg";
 
 export default class ImageUpload extends React.Component {
   /**
@@ -8,13 +8,18 @@ export default class ImageUpload extends React.Component {
    * https://wordpress.stackexchange.com/questions/235406/how-do-i-select-an-image-from-media-library-in-my-plugin
    */
 
-  state = { src: null };
+  state = {
+    src: null,
+  };
+
   componentDidMount() {
-    console.log(edit);
     this.setState((prevState) => ({
-      src: this.props.image ? this.props.image : pluginAppDirPath + placeholder,
+      src: this.props.image
+        ? this.props.image
+        : pluginAppDirPath + placeholderUrl,
     }));
   }
+
   uploadReplaceMedia = () => {
     var image_frame;
     let that = this;
@@ -91,7 +96,9 @@ export default class ImageUpload extends React.Component {
         <button
           className="absolute xy-align text-white flex justify-center items-center p-4 opacity-75 bg-gray-900 cursor-pointer focus:outline-none border-none rounded-full outline-none hover:opacity-100"
           onClick={this.uploadReplaceMedia}
-        ></button>
+        >
+          <Edit className="w-4 h-4 xy-align" />
+        </button>
       </div>
     );
   }

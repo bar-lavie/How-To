@@ -5,6 +5,7 @@ import Button from "../../shared/UI/Button/Button";
 import TitleDescription from "../TitleDescription/TitleDescription";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { ReactComponent as Remove } from "./remove.svg";
 
 /**
  * DND source:
@@ -15,14 +16,6 @@ class Create extends React.Component {
   state = {
     isUpdate: false,
     steps: [],
-  };
-
-  stepPlaceholder = {
-    id: "step-1",
-    img: "",
-    title: "I am an example step, Edit me first!",
-    content:
-      "This is my description, Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   };
 
   componentDidMount() {
@@ -69,7 +62,7 @@ class Create extends React.Component {
     this.setState({ name: value });
   };
 
-  saveHowTo = () => {
+  onSaveHowTo = () => {
     let form_data = new FormData();
 
     if (this.state.isUpdate) {
@@ -90,9 +83,9 @@ class Create extends React.Component {
     });
   };
 
-  addStep = () => {
+  onAddStep = () => {
     let nextStep = { ...this.stepPlaceholder };
-    nextStep.id = `step-${this.state.steps.length + 1}`;
+    nextStep.id = this.uid();
     this.setState((prevState) => ({
       steps: [...prevState.steps, nextStep],
     }));
@@ -127,11 +120,22 @@ class Create extends React.Component {
 
     return result;
   };
+  uid = () => {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  };
+
+  stepPlaceholder = {
+    id: this.uid(),
+    img: "",
+    title: "I am an example step, Edit me first!",
+    content:
+      "This is my description, Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  };
 
   render() {
     return (
       <div>
-        <Button navigateTo="/" type="primary">
+        <Button navigateTo="/" type="secondary">
           Back
         </Button>
         <div className="py-8">
@@ -140,7 +144,7 @@ class Create extends React.Component {
               <span className="text-2xl flex items-center">
                 Updating{" "}
                 <input
-                  className="input text-2xl w-64 mx-2"
+                  className="input text-2xl w-full max-w-xs mx-2"
                   defaultValue={this.state.name}
                   onChange={this.onUpdateName}
                 />
@@ -170,16 +174,22 @@ class Create extends React.Component {
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                           >
-                            <div className="px-8 py-4 h-32 flex items-center">
-                              <span className="block mr-2">{i + 1}</span>
-                              <Button
-                                type="secondary"
-                                onClick={() => this.onRemoveStep(i)}
-                              >
-                                Remove
-                              </Button>
+                            <div className="p-4 md:p-8 w-1/5 h-32">
+                              <div className="flex items-center h-full">
+                                <span className="block text-lg font-bold">
+                                  <span className="hidden md:inline">Step</span>{" "}
+                                  {i + 1}
+                                </span>
+                                <span className="block border-0 border-l border-solid border-gray-400 mx-2 py-3"></span>
+                                <button
+                                  className="relative text-white flex justify-center items-center p-4 opacity-75 bg-gray-900 cursor-pointer focus:outline-none border-none rounded-full outline-none hover:opacity-100"
+                                  onClick={() => this.onRemoveStep(i)}
+                                >
+                                  <Remove className="w-4 h-4 xy-align" />
+                                </button>
+                              </div>
                             </div>
-                            <div className="px-8 py-4 w-3/4 h-32">
+                            <div className="p-4 md:p-8 w-3/5 h-32">
                               <TitleDescription
                                 onTitleDescriptionChangeHandler={(
                                   type,
@@ -191,7 +201,7 @@ class Create extends React.Component {
                                 description={item.content}
                               />
                             </div>
-                            <div className="px-8 py-4 w-1/4 h-32">
+                            <div className="p-4 md:p-8 w-1/5 h-32">
                               <ImageUpload
                                 onImageChangeHandler={(src) =>
                                   this.onImageChange(src, i)
@@ -211,12 +221,12 @@ class Create extends React.Component {
           )}
         </div>
         <div className="flex justify-between items-center">
-          <Button type="primary" onClick={this.addStep}>
+          <Button type="primary" onClick={this.onAddStep}>
             Add Step
           </Button>
           <Button
             type="primary"
-            onClick={this.saveHowTo}
+            onClick={this.onSaveHowTo}
             className={
               this.state.hasOwnProperty("name") && this.state.name.length < 2
                 ? "pointer-events-none"

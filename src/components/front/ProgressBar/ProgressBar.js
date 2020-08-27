@@ -11,7 +11,7 @@ export default class ProgressBar extends React.Component {
           key={i}
           className={`p-5 rounded-full bg-gray-400 relative cursor-pointer transition-colors duration-300 ${
             this.props.active === i || this.props.active > i
-              ? "bg-green-500"
+              ? "bg-indigo-500"
               : ""
           }`}
         >
@@ -23,7 +23,7 @@ export default class ProgressBar extends React.Component {
       (100 / (this.props.bullets - 1)) * (this.props.active - 1) + "%";
     return (
       <>
-        <div className="progress-bar flex justify-between relative my-4">
+        <div className="progress-bar flex justify-between relative my-8">
           <div
             className="progress-line"
             style={{ width: progressLineWidth }}

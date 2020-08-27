@@ -1,18 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setName, setHowToList } from "../../../actions/index";
+import { setName, setHowToList, getHowToStatus } from "../../../actions/index";
 import Button from "../UI/Button/Button";
 import HowToBox from "../../front/HowToBox/HowToBox";
 
 class MainPage extends React.Component {
   state = {
-    isFront: false,
     howToList: [],
     search: true,
     show: "all",
     display: "list",
   };
   componentDidMount() {
+    this.props.getHowToStatus();
     if (typeof howto !== "undefined" && howto.length > 0) {
       if (typeof howto === "string") {
         howto = JSON.parse(howto);
@@ -20,11 +20,6 @@ class MainPage extends React.Component {
       this.props.setHowToList(howto);
       this.setState((prevState) => ({
         howToList: howto,
-      }));
-    }
-    if (typeof isHowtoFront !== "undefined") {
-      this.setState((prevState) => ({
-        isFront: isHowtoFront,
       }));
     }
   }
@@ -49,23 +44,27 @@ class MainPage extends React.Component {
     let emptyHowTo = this.state.howToList.length === 0;
 
     const howTos = this.state.howToList.map((item) => (
-      <HowToBox isFront={this.state.isFront} key={item.permalink} data={item} />
+      <HowToBox
+        key={item.permalink}
+        status={this.props.status.includes(item.permalink)}
+        data={item}
+      />
     ));
 
     return (
       <div className="flex flex-col items-center justify-center">
-        {!this.state.isFront && (
-          <div className="w-3/4 text-center mb-16">
-            <h1 className="text-4xl mb-4">
+        {!isHowtoFront && (
+          <div className="text-center mb-16">
+            <span className="block font-black text-3xl mb-4 leading-normal">
               Welcome to How-To Wordpress plugin
-            </h1>
-            <p className="text-lg">
+            </span>
+            <p className="text-sm">
               This plugin allows you to create guides for your users and display
               them on the admin or your website
             </p>
           </div>
         )}
-        <div>
+        <div className="flex items-center">
           <span className="text-2xl">How to</span>
           <input
             className="input mx-2 w-64 text-2xl"
@@ -74,11 +73,13 @@ class MainPage extends React.Component {
             onChange={this.handleInputChange}
           />
 
-          {emptyHowTo && !this.state.isFront ? (
+          {!isHowtoFront ? (
             <Button
-              className={this.props.name ? "" : "pointer-events-none"}
+              className={
+                this.props.name && emptyHowTo ? "" : "pointer-events-none"
+              }
               navigateTo="/create"
-              type="primary"
+              type={this.props.name && emptyHowTo ? "primary" : "secondary"}
             >
               Create
             </Button>
@@ -87,16 +88,21 @@ class MainPage extends React.Component {
           )}
         </div>
 
+        {!isHowtoFront && this.props.name && !emptyHowTo && (
+          <span className="text-xs mt-4">
+            It seems that you already have a How-to that matches your search
+          </span>
+        )}
+
         {emptyHowTo ? (
-          <div className="flex flex-col justify-center text-center mt-8">
-            <span className="block mb-4">
-              {this.state.isFront || this.props.name
-                ? "No How-To's found..."
-                : "You don't have any How-To's yet."}
-            </span>
-          </div>
+          <span className="block mt-10 mb-4">
+            No How-To's found
+            {!isHowtoFront && this.props.name ? " create one!" : "..."}
+          </span>
         ) : (
-          howTos
+          <div className="bg-gray-100 py-2 px-4 flex flex-col mt-8">
+            {howTos}
+          </div>
         )}
       </div>
     );
@@ -106,7 +112,12 @@ class MainPage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     name: state.name,
+    status: state.status,
   };
 };
 
-export default connect(mapStateToProps, { setName, setHowToList })(MainPage);
+export default connect(mapStateToProps, {
+  setName,
+  setHowToList,
+  getHowToStatus,
+})(MainPage);

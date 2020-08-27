@@ -8,7 +8,7 @@ import HowTo from "./components/front/HowTo/HowTo";
 export default class AppRouter extends Component {
   render() {
     return (
-      <div className={!isHowtoFront ? "mt-8" : ""}>
+      <div className={!isHowtoFront ? "howto-admin" : ""}>
         <Router>
           <Switch>
             <Route exact path="/" component={MainPage} />

@@ -2,17 +2,37 @@ import React from "react";
 import Button from "../../shared/UI/Button/Button";
 import Step from "../Step/Step";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { setHowToStatus } from "../../../actions/index";
+
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class HowTo extends React.Component {
   state = {
     name: null,
+    permalink: null,
     steps: null,
     maxSteps: null,
     step: 1,
     isLoading: true,
   };
+
+  componentDidMount() {
+    const stepObj = Object.values(this.props.howTo).find(
+      (element) => element.permalink === this.props.match.params.name
+    );
+    this.setState(
+      {
+        name: stepObj.name,
+        permalink: stepObj.permalink,
+        steps: stepObj.steps,
+        maxSteps: stepObj.steps.length,
+      },
+      this.setState({
+        isLoading: false,
+      })
+    );
+  }
 
   handleNextPrev = (move) => {
     if (this.state.step === this.state.maxSteps && move === "next") {
@@ -33,21 +53,13 @@ class HowTo extends React.Component {
     });
     this.props.history.push(this.props.match.url + "/step-" + step);
   };
-  componentDidMount() {
-    const stepObj = Object.values(this.props.howTo).find(
-      (element) => element.permalink === this.props.match.params.name
-    );
-    this.setState(
-      {
-        name: stepObj.name,
-        steps: stepObj.steps,
-        maxSteps: stepObj.steps.length,
-      },
-      this.setState({
-        isLoading: false,
-      })
-    );
-  }
+
+  handleDone = () => {
+    if (!this.props.status.includes(this.state.permalink) && isHowtoFront) {
+      this.props.setHowToStatus(this.state.permalink);
+    }
+    this.props.history.push("/");
+  };
 
   render() {
     if (this.state.isLoading) {
@@ -94,7 +106,7 @@ class HowTo extends React.Component {
                   Next
                 </Button>
               ) : (
-                <Button navigateTo="/" type="primary">
+                <Button onClick={this.handleDone} type="primary">
                   Done
                 </Button>
               )}
@@ -108,6 +120,8 @@ class HowTo extends React.Component {
 const mapStateToProps = (state) => {
   return {
     howTo: state.howto,
+    status: state.status,
   };
 };
-export default connect(mapStateToProps)(HowTo);
+
+export default connect(mapStateToProps, { setHowToStatus })(HowTo);

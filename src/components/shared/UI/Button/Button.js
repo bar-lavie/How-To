@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
  */
 const Button = (props) => {
   let classNames =
-    "px-2 py-1 rounded-md inline-block text-center no-underline hover:no-underline focus:outline-none border-none cursor-pointer ";
+    "px-2 py-1 rounded-md inline-block text-center no-underline hover:no-underline focus:outline-none border-none cursor-pointer leading-normal ";
   switch (props.type) {
     case "primary":
       classNames +=
-        "bg-green-500 hover:bg-green-600 text-white hover:text-white";
+        "bg-indigo-500 hover:bg-indigo-600 text-white hover:text-white";
       break;
 
     case "secondary":
-      classNames += "bg-gray-100 hover:bg-gray-200 text-green-500";
+      classNames += "bg-indigo-100 hover:bg-indigo-200 text-indigo-500";
       break;
 
     default:
