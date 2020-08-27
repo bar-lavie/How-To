@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
  */
 const Button = (props) => {
   let classNames =
-    "px-2 py-1 rounded-md inline-block text-center no-underline hover:no-underline ";
+    "px-2 py-1 rounded-md inline-block text-center no-underline hover:no-underline focus:outline-none border-none cursor-pointer ";
   switch (props.type) {
     case "primary":
       classNames +=

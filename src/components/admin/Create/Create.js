@@ -135,26 +135,28 @@ class Create extends React.Component {
           Back
         </Button>
         <div className="py-8">
-          {this.state.isUpdate && (
-            <span className="text-2xl flex items-center">
-              Updating{" "}
-              <input
-                className="input focus:outline-none w-full mx-2"
-                defaultValue={this.state.name}
-                onChange={this.onUpdateName}
-              />
-            </span>
-          )}
-          {!this.state.isUpdate && (
-            <span className="text-2xl">{this.props.name}</span>
-          )}
+          <div className="mb-8">
+            {this.state.isUpdate && (
+              <span className="text-2xl flex items-center">
+                Updating{" "}
+                <input
+                  className="input text-2xl w-64 mx-2"
+                  defaultValue={this.state.name}
+                  onChange={this.onUpdateName}
+                />
+              </span>
+            )}
+            {!this.state.isUpdate && (
+              <span className="text-2xl">{this.props.name}</span>
+            )}
+          </div>
           <span className="block my-4"></span>
           {this.state.steps.length > 0 && (
             <DragDropContext onDragEnd={this.onDragEnd}>
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <div
-                    className="divide-y divide-gray-400"
+                    className="create-steps-wrapper"
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
@@ -163,12 +165,12 @@ class Create extends React.Component {
                         {(provided, snapshot) => (
                           <div
                             key={i}
-                            className="overflow-hidden flex items-center divide-x divide-gray-400"
+                            className="step-wrapper overflow-hidden flex items-center"
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                           >
-                            <div className="px-8 py-4 h-40 flex items-center">
+                            <div className="px-8 py-4 h-32 flex items-center">
                               <span className="block mr-2">{i + 1}</span>
                               <Button
                                 type="secondary"
@@ -177,7 +179,7 @@ class Create extends React.Component {
                                 Remove
                               </Button>
                             </div>
-                            <div className="px-8 py-4 w-3/4 h-40">
+                            <div className="px-8 py-4 w-3/4 h-32">
                               <TitleDescription
                                 onTitleDescriptionChangeHandler={(
                                   type,
@@ -189,7 +191,7 @@ class Create extends React.Component {
                                 description={item.content}
                               />
                             </div>
-                            <div className="px-8 py-4 w-1/4 h-40">
+                            <div className="px-8 py-4 w-1/4 h-32">
                               <ImageUpload
                                 onImageChangeHandler={(src) =>
                                   this.onImageChange(src, i)

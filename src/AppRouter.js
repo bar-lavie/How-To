@@ -8,14 +8,16 @@ import HowTo from "./components/front/HowTo/HowTo";
 export default class AppRouter extends Component {
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route path="/create" component={Create} />
-          <Route path="/update/:name" component={Create} />
-          <Route path="/how-to/:name" component={HowTo} />
-        </Switch>
-      </Router>
+      <div className={!isHowtoFront ? "mt-8" : ""}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Route path="/create" component={Create} />
+            <Route path="/update/:name" component={Create} />
+            <Route path="/how-to/:name" component={HowTo} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }

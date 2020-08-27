@@ -3,7 +3,7 @@ module.exports = {
   variants: {
     opacity: ["responsive", "hover", "group-hover"],
   },
-  // corePlugins: {
-  //   preflight: false,
-  // },
+  corePlugins: {
+    preflight: false,
+  },
 };

@@ -5,6 +5,7 @@ export default class TitleDescription extends React.Component {
     return (
       <div className="flex flex-col h-full">
         <input
+          className="input"
           type="text"
           defaultValue={this.props.title}
           onChange={(e) =>
@@ -20,7 +21,7 @@ export default class TitleDescription extends React.Component {
               e.target.value
             )
           }
-          className="h-full"
+          className="input h-full"
         ></textarea>
       </div>
     );

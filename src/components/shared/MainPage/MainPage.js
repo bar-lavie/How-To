@@ -22,9 +22,9 @@ class MainPage extends React.Component {
         howToList: howto,
       }));
     }
-    if (typeof isFront !== "undefined") {
+    if (typeof isHowtoFront !== "undefined") {
       this.setState((prevState) => ({
-        isFront: isFront,
+        isFront: isHowtoFront,
       }));
     }
   }
@@ -54,10 +54,21 @@ class MainPage extends React.Component {
 
     return (
       <div className="flex flex-col items-center justify-center">
+        {!this.state.isFront && (
+          <div className="w-3/4 text-center mb-16">
+            <h1 className="text-4xl mb-4">
+              Welcome to How-To Wordpress plugin
+            </h1>
+            <p className="text-lg">
+              This plugin allows you to create guides for your users and display
+              them on the admin or your website
+            </p>
+          </div>
+        )}
         <div>
           <span className="text-2xl">How to</span>
           <input
-            className="input focus:outline-none mx-2 w-64 text-2xl"
+            className="input mx-2 w-64 text-2xl"
             placeholder="upload image"
             value={this.props.name ? this.props.name : ""}
             onChange={this.handleInputChange}

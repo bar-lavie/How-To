@@ -2,6 +2,7 @@
 @import "../node_modules/tailwindcss/components";
 @import "../node_modules/tailwindcss/utilities";
 #howto {
+  font-size: 1rem;
   .progress-bar {
     &:before {
       content: "";
@@ -19,7 +20,10 @@
     }
   }
   .input {
-    @apply bg-transparent border-t-0 border-l-0 border-r-0 border-b border-gray-900;
+    @apply bg-transparent border-t-0 border-l-0 border-r-0 border-b rounded-none border-gray-600;
+    &:focus {
+      @apply outline-none border-gray-900 shadow-none;
+    }
   }
   .y-align {
     position: absolute;
@@ -31,5 +35,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .create-steps-wrapper {
+    > div:not(:last-child) {
+      border-bottom: 1px solid theme("colors.gray.400");
+    }
+  }
+  .step-wrapper {
+    > div:not(:last-child) {
+      border-right: 1px solid theme("colors.gray.400");
+    }
   }
 }

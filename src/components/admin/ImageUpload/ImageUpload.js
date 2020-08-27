@@ -1,5 +1,7 @@
 import React from "react";
 import placeholder from "./placeholder.svg";
+import { ReactComponent as edit } from "./edit.svg";
+
 export default class ImageUpload extends React.Component {
   /**
    * Use media upload:
@@ -8,6 +10,7 @@ export default class ImageUpload extends React.Component {
 
   state = { src: null };
   componentDidMount() {
+    console.log(edit);
     this.setState((prevState) => ({
       src: this.props.image ? this.props.image : pluginAppDirPath + placeholder,
     }));
@@ -79,18 +82,16 @@ export default class ImageUpload extends React.Component {
 
   render() {
     return (
-      <div className="relative group h-full">
+      <div className="relative h-full">
         <img
           className="object-contain h-full w-full border-none"
           src={this.state.src}
         />
 
         <button
-          className="absolute xy-align text-white flex justify-center items-center p-3 opacity-0 bg-gray-900 cursor-pointer group-hover:opacity-75"
+          className="absolute xy-align text-white flex justify-center items-center p-4 opacity-75 bg-gray-900 cursor-pointer focus:outline-none border-none rounded-full outline-none hover:opacity-100"
           onClick={this.uploadReplaceMedia}
-        >
-          <span>Change Me</span>
-        </button>
+        ></button>
       </div>
     );
   }

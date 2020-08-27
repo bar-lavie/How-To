@@ -6,13 +6,16 @@ export default class Step extends React.Component {
 
     return (
       <div className="py-4">
-        <div className="overflow-hidden rounded-lg border border-gray-400 mt-4 mb-8">
-          <img src={pluginAppDirPath + window} />
-          <img src={data.img} />
+        {data.img && (
+          <div className="overflow-hidden rounded-lg border border-gray-400 mt-4 mb-8">
+            <img src={pluginAppDirPath + window} />
+            <img src={data.img} />
+          </div>
+        )}
+        <div className="mb-8">
+          <span className="text-xl block mb-8">{data.title}</span>
+          <span className="text-sm block">{data.content}</span>
         </div>
-        <span className="text-xl block">{data.title}</span>
-        <span className="block my-4"></span>
-        <span className="text-sm block">{data.content}</span>
       </div>
     );
   }
