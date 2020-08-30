@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { setHowToList, getHowToStatus } from "./actions/index";
 
 import MainPage from "./components/shared/MainPage/MainPage";
 import Create from "./components/admin/Create/Create";
 import HowTo from "./components/front/HowTo/HowTo";
 
-export default class AppRouter extends Component {
+class AppRouter extends Component {
+  componentDidMount() {
+    this.props.getHowToStatus();
+    if (typeof howto !== "undefined" && howto.length > 0) {
+      if (typeof howto === "string") {
+        howto = JSON.parse(howto);
+      }
+      this.props.setHowToList(howto);
+    }
+  }
   render() {
     return (
       <div className={!isHowtoFront ? "howto-admin" : ""}>
@@ -21,3 +33,8 @@ export default class AppRouter extends Component {
     );
   }
 }
+
+export default connect(null, {
+  setHowToList,
+  getHowToStatus,
+})(AppRouter);

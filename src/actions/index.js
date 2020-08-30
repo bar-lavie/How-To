@@ -16,7 +16,7 @@ export const setHowToStatus = (howTo) => {
   localStorage.setItem("howtoStatus", JSON.stringify(newStatus));
   return {
     type: "SET_HOW_TO_STATUS",
-    payload: newStatus,
+    payload: howTo,
   };
 };
 export const getHowToStatus = () => {

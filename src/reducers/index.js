@@ -19,10 +19,13 @@ const howToListReducer = (howToList = [], action) => {
 
 const howToStatusReducer = (status = [], action) => {
   if (action.type === "SET_HOW_TO_STATUS") {
-    return [...status, ...action.payload];
+    console.log("SET_HOW_TO_STATUS ", action.payload);
+    return [...status, action.payload];
   }
   if (action.type === "GET_HOW_TO_STATUS") {
-    return [...new Set([...status, ...action.payload])];
+    console.log("GET_HOW_TO_STATUS ", action.payload);
+    // return [...new Set([...status, ...action.payload])];
+    return [...status, ...action.payload];
   }
   return status;
 };

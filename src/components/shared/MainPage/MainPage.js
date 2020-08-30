@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setName, setHowToList, getHowToStatus } from "../../../actions/index";
+import { setName } from "../../../actions/index";
 import Button from "../UI/Button/Button";
 import HowToBox from "../../front/HowToBox/HowToBox";
 
@@ -12,16 +12,9 @@ class MainPage extends React.Component {
     display: "list",
   };
   componentDidMount() {
-    this.props.getHowToStatus();
-    if (typeof howto !== "undefined" && howto.length > 0) {
-      if (typeof howto === "string") {
-        howto = JSON.parse(howto);
-      }
-      this.props.setHowToList(howto);
-      this.setState((prevState) => ({
-        howToList: howto,
-      }));
-    }
+    this.setState((prevState) => ({
+      howToList: howto,
+    }));
   }
   handleInputChange = (e) => {
     let value = e.target.value;
@@ -113,11 +106,10 @@ const mapStateToProps = (state) => {
   return {
     name: state.name,
     status: state.status,
+    howto: state.howto,
   };
 };
 
 export default connect(mapStateToProps, {
   setName,
-  setHowToList,
-  getHowToStatus,
 })(MainPage);
