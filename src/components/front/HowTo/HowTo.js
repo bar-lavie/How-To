@@ -56,7 +56,6 @@ class HowTo extends React.Component {
 
   handleDone = () => {
     if (!this.props.status.includes(this.state.permalink) && isHowtoFront) {
-      console.log("handleDone", this.state.permalink);
       this.props.setHowToStatus(this.state.permalink);
     }
     this.props.history.push("/");

@@ -2,8 +2,6 @@ import { combineReducers } from "redux";
 import { updateObject } from "../shared/utility";
 
 const nameReducer = (howToName = null, action) => {
-  // console.log("action");
-  // console.log("in");
   if (action.type === "SET_NAME") {
     return action.payload;
   }
@@ -19,11 +17,9 @@ const howToListReducer = (howToList = [], action) => {
 
 const howToStatusReducer = (status = [], action) => {
   if (action.type === "SET_HOW_TO_STATUS") {
-    console.log("SET_HOW_TO_STATUS ", action.payload);
     return [...status, action.payload];
   }
   if (action.type === "GET_HOW_TO_STATUS") {
-    console.log("GET_HOW_TO_STATUS ", action.payload);
     // return [...new Set([...status, ...action.payload])];
     return [...status, ...action.payload];
   }
