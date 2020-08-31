@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setName } from "../../../actions/index";
+import { setName, setHowToList, getHowToStatus } from "../../../actions/index";
 import Button from "../UI/Button/Button";
 import HowToBox from "../../front/HowToBox/HowToBox";
 
@@ -12,9 +12,16 @@ class MainPage extends React.Component {
     display: "list",
   };
   componentDidMount() {
-    this.setState((prevState) => ({
-      howToList: howto,
-    }));
+    this.props.getHowToStatus();
+    if (typeof howto !== "undefined" && howto.length > 0) {
+      if (typeof howto === "string") {
+        howto = JSON.parse(howto);
+      }
+      this.props.setHowToList(howto);
+      this.setState((prevState) => ({
+        howToList: howto,
+      }));
+    }
   }
   handleInputChange = (e) => {
     let value = e.target.value;
@@ -23,7 +30,7 @@ class MainPage extends React.Component {
       howToList: [],
     }));
     if (howto.length > 0) {
-      howto.forEach((item) => {
+      this.props.howto.forEach((item) => {
         let itemName = item.name.toLowerCase();
         if (itemName.includes(value)) {
           this.setState((prevState) => ({
@@ -35,7 +42,6 @@ class MainPage extends React.Component {
   };
   render() {
     let emptyHowTo = this.state.howToList.length === 0;
-
     const howTos = this.state.howToList.map((item) => (
       <HowToBox
         key={item.permalink}
@@ -112,4 +118,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   setName,
+  setHowToList,
+  getHowToStatus,
 })(MainPage);

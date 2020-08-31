@@ -7,10 +7,14 @@ export default class Step extends React.Component {
     return (
       <div className="py-4">
         {data.img && (
-          <div className="overflow-hidden rounded-lg border border-gray-400 mt-4 mb-8">
+          <a
+            href={data.img}
+            target="_blank"
+            className="overflow-hidden block rounded-lg border border-gray-400 mt-4 mb-8"
+          >
             <img src={pluginAppDirPath + window} />
             <img src={data.img} />
-          </div>
+          </a>
         )}
         <div className="mb-8">
           <span className="text-xl block mb-8">{data.title}</span>

@@ -28,9 +28,11 @@ class HowTo extends React.Component {
         steps: stepObj.steps,
         maxSteps: stepObj.steps.length,
       },
-      this.setState({
-        isLoading: false,
-      })
+      setTimeout(() => {
+        this.setState({
+          isLoading: false,
+        });
+      }, 3000)
     );
   }
 
