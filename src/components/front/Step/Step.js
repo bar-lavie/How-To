@@ -1,5 +1,7 @@
 import React from "react";
 import window from "./window.svg";
+import draftToHtml from 'draftjs-to-html';
+
 export default class Step extends React.Component {
   render() {
     let data = this.props.data;
@@ -18,7 +20,7 @@ export default class Step extends React.Component {
         )}
         <div className="mb-8">
           <span className="text-xl block mb-8">{data.title}</span>
-          <span className="text-sm block">{data.content}</span>
+          <div className="block" dangerouslySetInnerHTML={{ __html: typeof data.content === 'string' ? data.content : draftToHtml(data.content) }}></div>
         </div>
       </div>
     );

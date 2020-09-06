@@ -28,11 +28,9 @@ class HowTo extends React.Component {
         steps: stepObj.steps,
         maxSteps: stepObj.steps.length,
       },
-      setTimeout(() => {
-        this.setState({
-          isLoading: false,
-        });
-      }, 3000)
+      this.setState({
+        isLoading: false,
+      })
     );
   }
 
@@ -108,10 +106,10 @@ class HowTo extends React.Component {
                   Next
                 </Button>
               ) : (
-                <Button onClick={this.handleDone} type="primary">
-                  Done
-                </Button>
-              )}
+                  <Button onClick={this.handleDone} type="primary">
+                    Done
+                  </Button>
+                )}
             </div>
           </div>
         </div>

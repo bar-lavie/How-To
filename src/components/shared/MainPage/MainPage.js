@@ -42,9 +42,10 @@ class MainPage extends React.Component {
   };
   render() {
     let emptyHowTo = this.state.howToList.length === 0;
-    const howTos = this.state.howToList.map((item) => (
+
+    const howTos = this.state.howToList.map((item, i) => (
       <HowToBox
-        key={item.permalink}
+        key={i}
         status={this.props.status.includes(item.permalink)}
         data={item}
       />
@@ -83,8 +84,8 @@ class MainPage extends React.Component {
               Create
             </Button>
           ) : (
-            <span className="text-2xl">?</span>
-          )}
+              <span className="text-2xl">?</span>
+            )}
         </div>
 
         {!isHowtoFront && this.props.name && !emptyHowTo && (
@@ -99,10 +100,10 @@ class MainPage extends React.Component {
             {!isHowtoFront && this.props.name ? " create one!" : "..."}
           </span>
         ) : (
-          <div className="bg-gray-100 py-2 px-4 flex flex-col mt-8">
-            {howTos}
-          </div>
-        )}
+            <div className="bg-gray-100 py-2 px-4 flex flex-col mt-8 w-full overflow-y-scroll" style={{ maxWidth: '24rem', maxHeight: '16rem' }}>
+              {howTos}
+            </div>
+          )}
       </div>
     );
   }

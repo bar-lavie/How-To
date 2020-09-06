@@ -17,6 +17,10 @@ const Button = (props) => {
       classNames += "bg-indigo-100 hover:bg-indigo-200 text-indigo-500";
       break;
 
+    case "danger":
+      classNames += "bg-red-500 hover:bg-red-600 text-white";
+      break;
+
     default:
       break;
   }
@@ -35,13 +39,13 @@ const Button = (props) => {
           {props.children}
         </Link>
       ) : (
-        <button
-          className={classNames + " " + moreClassNames}
-          onClick={props.onClick}
-        >
-          {props.children}
-        </button>
-      )}
+          <button
+            className={classNames + " " + moreClassNames}
+            onClick={props.onClick}
+          >
+            {props.children}
+          </button>
+        )}
     </>
   );
 };

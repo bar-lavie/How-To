@@ -2,7 +2,7 @@
 @import "../node_modules/tailwindcss/base";
 @import "../node_modules/tailwindcss/components";
 @import "../node_modules/tailwindcss/utilities";
-// @import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+@import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 #howto {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -50,6 +50,8 @@
     transform: translate(-50%, -50%);
   }
   .create-steps-wrapper {
+    max-height: 400px;
+    overflow-y: scroll;
     > div:not(:last-child) {
       border-bottom: 1px solid theme("colors.gray.400");
     }
@@ -58,5 +60,56 @@
     > div:not(:last-child) {
       border-right: 1px solid theme("colors.gray.400");
     }
+  }
+
+  .my-node-enter {
+    opacity: 0;
+  }
+  .my-node-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  .my-node-exit {
+    opacity: 1;
+  }
+  .my-node-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+
+  .slide-enter,
+  .slide-exit {
+    transition: transform 1000ms ease-in-out, opacity 1000ms ease-in-out;
+  }
+  .slide-enter {
+    transition-delay: 1s;
+  }
+
+  // .slide-enter-active,
+  // .slide-exit-active {
+  //   transition: transform 4000ms ease-in-out, opacity 4000ms ease-in-out;
+  // }
+
+  .slide-enter {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .slide-enter-active {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .slide-exit {
+    opacity: 1;
+    transform: translateX(0%);
+    // position: absolute;
+    // // top: 0;
+    // // left: 0;
+  }
+
+  .slide-exit-active {
+    opacity: 0;
+    transform: translateX(20px);
   }
 }
