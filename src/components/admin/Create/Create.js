@@ -8,6 +8,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { ReactComponent as Remove } from "./remove.svg";
 import DescriptionModal from '../DescriptionModal/DescriptionModal'
 import { CSSTransition } from 'react-transition-group'
+import { withRouter } from "react-router-dom";
 
 /**
  * DND source:
@@ -187,7 +188,7 @@ class Create extends React.Component {
 
   render() {
     return (
-      <div className="">
+      <div className="relative">
         <Button navigateTo="/" type="secondary">
           Back
         </Button>
@@ -293,7 +294,7 @@ class Create extends React.Component {
             Save
           </Button>
         </div>
-        <CSSTransition in={this.state.descriptionModal.isOpen} timeout={300} unmountOnExit classNames="my-node">
+        <CSSTransition in={this.state.descriptionModal.isOpen} timeout={300} unmountOnExit classNames="absolute-fade-in">
           <DescriptionModal description={this.state.descriptionModal.currentDescriptionEdit} onDescriptionModalCloseHandler={(newDescription) => { this.onDescriptionModalClose(newDescription) }} />
         </CSSTransition>
       </div>
@@ -308,4 +309,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Create);
+export default withRouter(connect(mapStateToProps)(Create));

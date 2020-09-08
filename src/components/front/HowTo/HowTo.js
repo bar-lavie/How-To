@@ -5,7 +5,8 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import { setHowToStatus } from "../../../actions/index";
 
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { withRouter, Switch, Route } from "react-router-dom";
+
 
 class HowTo extends React.Component {
   state = {
@@ -18,6 +19,7 @@ class HowTo extends React.Component {
   };
 
   componentDidMount() {
+
     const stepObj = Object.values(this.props.howTo).find(
       (element) => element.permalink === this.props.match.params.name
     );
@@ -66,7 +68,7 @@ class HowTo extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
+        <>
           <Button navigateTo="/" type="primary">
             Back
           </Button>
@@ -92,12 +94,12 @@ class HowTo extends React.Component {
               ))}
             </Switch>
             <div className="flex justify-between">
-              <Button
+              {this.state.step > 1 ? <Button
                 onClick={() => this.handleNextPrev("prev")}
                 type="primary"
               >
                 Back
-              </Button>
+              </Button> : <div></div>}
               {this.state.step !== this.state.maxSteps ? (
                 <Button
                   onClick={() => this.handleNextPrev("next")}
@@ -112,7 +114,7 @@ class HowTo extends React.Component {
                 )}
             </div>
           </div>
-        </div>
+        </>
       );
     }
   }
@@ -124,4 +126,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setHowToStatus })(HowTo);
+export default withRouter(connect(mapStateToProps, { setHowToStatus })(HowTo));

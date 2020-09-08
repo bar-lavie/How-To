@@ -4,17 +4,21 @@
 @import "../node_modules/tailwindcss/utilities";
 @import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 #howto {
+  overflow: hidden;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  textarea {
-    resize: none;
+
+  .page {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
   }
-  .howto-admin {
+  .is-admin {
     background-color: #fff;
     padding: 1.5rem;
     margin-top: 1.5rem;
-    @apply rounded-lg max-w-3xl;
-    overflow: hidden;
+    @apply rounded-lg;
+    max-width: 800px;
   }
   .progress-bar {
     &:before {
@@ -37,6 +41,9 @@
     &:focus {
       @apply outline-none border-gray-900 shadow-none;
     }
+  }
+  textarea {
+    resize: none;
   }
   .y-align {
     position: absolute;
@@ -62,54 +69,46 @@
     }
   }
 
-  .my-node-enter {
+  .absolute-fade-in-enter {
     opacity: 0;
   }
-  .my-node-enter-active {
+  .absolute-fade-in-enter-active {
     opacity: 1;
     transition: opacity 200ms;
   }
-  .my-node-exit {
+  .absolute-fade-in-exit {
     opacity: 1;
   }
-  .my-node-exit-active {
+  .absolute-fade-in-exit-active {
     opacity: 0;
     transition: opacity 200ms;
   }
 
-  .slide-enter,
-  .slide-exit {
-    transition: transform 1000ms ease-in-out, opacity 1000ms ease-in-out;
-  }
-  .slide-enter {
-    transition-delay: 1s;
-  }
-
-  // .slide-enter-active,
-  // .slide-exit-active {
-  //   transition: transform 4000ms ease-in-out, opacity 4000ms ease-in-out;
-  // }
-
-  .slide-enter {
+  .page-enter {
+    transform: translateX(100%);
+    transition: transform 300ms ease-out, opacity 300ms ease-out;
     opacity: 0;
-    transform: translateX(20px);
   }
 
-  .slide-enter-active {
-    opacity: 1;
+  .page-enter.page-enter-active {
     transform: translateX(0%);
   }
 
-  .slide-exit {
+  .page-enter-active {
     opacity: 1;
-    transform: translateX(0%);
-    // position: absolute;
-    // // top: 0;
-    // // left: 0;
   }
 
-  .slide-exit-active {
+  .page-exit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateX(0%);
+    transition: transform 300ms ease-out, opacity 300ms ease-out;
+  }
+
+  .page-exit-active {
+    transform: translateX(-100%);
     opacity: 0;
-    transform: translateX(20px);
   }
 }

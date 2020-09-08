@@ -26,24 +26,32 @@ class MainPage extends React.Component {
   handleInputChange = (e) => {
     let value = e.target.value;
     this.props.setName(value);
-    this.setState((prevState) => ({
-      howToList: [],
-    }));
-    if (howto.length > 0) {
-      this.props.howto.forEach((item) => {
-        let itemName = item.name.toLowerCase();
-        if (itemName.includes(value)) {
-          this.setState((prevState) => ({
-            howToList: [...prevState.howToList, item],
-          }));
-        }
-      });
-    }
+    // this.setState((prevState) => ({
+    //   howToList: [],
+    // }));
+    // if (howto.length > 0) {
+    //   this.props.howto.forEach((item) => {
+    //     let itemName = item.name.toLowerCase();
+    //     if (itemName.includes(value)) {
+    //       this.setState((prevState) => ({
+    //         howToList: [...prevState.howToList, item],
+    //       }));
+    //     }
+    //   });
+    // }
   };
   render() {
-    let emptyHowTo = this.state.howToList.length === 0;
+    let data = this.state.howToList;
 
-    const howTos = this.state.howToList.map((item, i) => (
+    if (this.props.name) {
+      data = this.state.howToList.filter((item) => (
+        item.name.toLowerCase().includes(this.props.name)
+      ))
+    }
+
+    let emptyHowTo = data.length === 0;
+
+    const howTos = data.map((item, i) => (
       <HowToBox
         key={i}
         status={this.props.status.includes(item.permalink)}
